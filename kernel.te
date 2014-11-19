@@ -80,3 +80,7 @@ neverallow kernel { file_type fs_type -rootfs }:file { entrypoint execute_no_tra
 
 
 allow kernel untrusted_app_tmpfs:file write;
+
+# For UMS full-device exports
+allow kernel block_device:blk_file r_file_perms;
+

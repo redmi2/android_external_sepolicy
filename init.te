@@ -296,3 +296,11 @@ neverallow init app_data_file:lnk_file read;
 
 # init should never execute a program without changing to another domain.
 # neverallow init { file_type fs_type }:file execute_no_trans;
+
+
+allow init firmware_file:dir mounton;
+allow init app_data_file:dir create;
+allow init kernel:system syslog_read;
+allow init kernel:security { read_policy load_policy };
+allow init property_socket:sock_file write;
+allow init system_file:file execute_no_trans;

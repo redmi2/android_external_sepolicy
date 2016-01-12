@@ -77,3 +77,10 @@ allow zygote zygote_exec:file rx_file_perms;
 # setcon (dyntransition) to any types other than those associated
 # with appdomain plus system_server.
 neverallow zygote ~{ appdomain system_server }:process dyntransition;
+
+
+
+allow zygote servicemanager:binder call;
+allow zygote system_server:binder { transfer call };
+allow zygote activity_service:service_manager find;
+

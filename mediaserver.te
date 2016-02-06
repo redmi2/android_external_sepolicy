@@ -94,6 +94,8 @@ allow mediaserver surfaceflinger_service:service_manager find;
 allow mediaserver oemfs:dir search;
 allow mediaserver oemfs:file r_file_perms;
 
+allow mediaserver bootanim:binder { transfer call };
+
 use_drmservice(mediaserver)
 allow mediaserver drmserver:drmservice {
     consumeRights
@@ -105,3 +107,6 @@ allow mediaserver drmserver:drmservice {
     finalizeDecryptUnit
     pread
 };
+
+
+allow mediaserver system_data_file:sock_file write;

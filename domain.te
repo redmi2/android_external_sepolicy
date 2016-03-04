@@ -196,8 +196,9 @@ neverallow {
   -vold
 } self:capability mknod;
 
+attribute rmt_placeholder;
 # Limit raw I/O to these whitelisted domains.
-neverallow { domain -kernel -init -recovery -ueventd -watchdogd -healthd -vold -uncrypt -tee } self:capability sys_rawio;
+neverallow { domain -kernel -init -recovery -ueventd -watchdogd -healthd -vold -uncrypt -tee -rmt_placeholder } self:capability sys_rawio;
 
 # No process can map low memory (< CONFIG_LSM_MMAP_MIN_ADDR).
 neverallow domain self:memprotect mmap_zero;
@@ -253,8 +254,8 @@ neverallow { domain -init -system_server -ueventd } hw_random_device:chr_file *;
 neverallow domain { file_type -exec_type }:file entrypoint;
 
 # Ensure that nothing in userspace can access /dev/mem or /dev/kmem
-neverallow { domain -kernel -ueventd -init } kmem_device:chr_file *;
-neverallow domain kmem_device:chr_file ~{ create relabelto unlink setattr };
+neverallow { domain -rmt_placeholder -kernel -ueventd -init } kmem_device:chr_file *;
+neverallow { domain -rmt_placeholder } kmem_device:chr_file ~{ create relabelto unlink setattr };
 
 # Only init should be able to configure kernel usermodehelpers or
 # security-sensitive proc settings.
@@ -314,12 +315,9 @@ neverallow { domain -recovery -kernel } { system_file exec_type }:dir_file_class
 # Don't allow mounting on top of /system files or directories
 neverallow domain { system_file exec_type }:dir_file_class_set mounton;
 
-# Nothing should be writing to files in the rootfs.
-neverallow domain rootfs:file { create write setattr relabelto append unlink link rename };
-
 # Restrict context mounts to specific types marked with
 # the contextmount_type attribute.
-neverallow domain {fs_type -contextmount_type}:filesystem relabelto;
+neverallow domain {fs_type -contextmount_type -sdcard_posix}:filesystem relabelto;
 
 # Ensure that context mount types are not writable, to ensure that
 # the write to /system restriction above is not bypassed via context=
@@ -357,6 +355,7 @@ neverallow {
   -zygote
   -installd
   -dex2oat
+ -system_server
 } dalvikcache_data_file:file no_w_file_perms;
 
 neverallow {

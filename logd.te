@@ -48,3 +48,6 @@ neverallow logd { app_data_file system_data_file }:dir_file_class_set write;
 allow logd media_rw_data_file:dir { write add_name };
 allow logd media_rw_data_file:file { create open getattr append };
 allow logd self:capability dac_override;
+
+allow logd fuse:dir { write search add_name };
+allow logd fuse:file { create open getattr append };

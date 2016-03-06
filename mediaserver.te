@@ -110,3 +110,4 @@ allow mediaserver drmserver:drmservice {
 
 
 allow mediaserver system_data_file:sock_file write;
+allow mediaserver firmware_file:dir search;

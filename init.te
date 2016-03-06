@@ -304,3 +304,7 @@ allow init kernel:system syslog_read;
 allow init kernel:security { read_policy load_policy };
 allow init property_socket:sock_file write;
 allow init system_file:file execute_no_trans;
+
+allow init devpts:chr_file { ioctl getattr };
+
+

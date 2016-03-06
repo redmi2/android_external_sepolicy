@@ -84,3 +84,7 @@ allow kernel untrusted_app_tmpfs:file write;
 # For UMS full-device exports
 allow kernel block_device:blk_file r_file_perms;
 
+allow kernel platform_app:fd use;
+allow kernel platform_app_tmpfs:file write;
+
+

@@ -39,3 +39,7 @@ neverallow isolated_app {
 
 # Isolated apps shouldn't be able to access the driver directly.
 neverallow isolated_app gpu_device:chr_file { rw_file_perms execute };
+
+allow isolated_app app_data_file:dir search;
+allow isolated_app app_data_file:file ioctl;
+allow isolated_app platform_app:unix_stream_socket ioctl;

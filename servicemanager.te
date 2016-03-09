@@ -15,3 +15,8 @@ allow servicemanager { domain -init }:binder transfer;
 
 # Check SELinux permissions.
 selinux_check_access(servicemanager)
+
+
+allow servicemanager zygote:dir search;
+allow servicemanager zygote:file { read open };
+allow servicemanager zygote:process getattr;

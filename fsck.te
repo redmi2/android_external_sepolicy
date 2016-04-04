@@ -21,6 +21,7 @@ allow fsck userdata_block_device:blk_file rw_file_perms;
 allow fsck cache_block_device:blk_file rw_file_perms;
 allow fsck dm_device:blk_file rw_file_perms;
 allow fsck vold_device:blk_file rw_file_perms;
+allow fsck block_device:blk_file { ioctl getattr };
 
 ###
 ### neverallow rules

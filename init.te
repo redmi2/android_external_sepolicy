@@ -280,6 +280,9 @@ allow init unencrypted_data_file:dir create_dir_perms;
 
 unix_socket_connect(init, vold, vold)
 
+allow init mpctl_data_file:file append;
+allow init sysfs_lowmemorykiller:file getattr;
+
 ###
 ### neverallow rules
 ###
